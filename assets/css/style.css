@@ -2,6 +2,7 @@
 body {
   background: black;
   color: white;
+  font-size: 20px; 
 }
 
 /* Change Image */
@@ -13,23 +14,29 @@ body {
 #title {
   font-family:'Dead Kansas';
   font-size: 60px;
-  color: red;
+  color: #D39920;
   padding: 40px;
 }
 
 #gameplay {
-  border: red 2px solid;
+  border: #D39920 2px solid;
   min-height: 500px;
 }
 
 #game-left {
 }
 
-#game-right {
-  border-left: red 2px solid;
-}
-
 img {
   margin: 5px;
   border: white 1px solid;
+}
+
+#game-right {
+  border-left: #D39920 2px solid;
+  padding: 40px;
+}
+
+#word {
+  background: rgb(255, 0, 0, .5);
+  padding: 10px;
 }

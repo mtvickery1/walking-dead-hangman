@@ -4,6 +4,11 @@ window.onload = function () {
   var charactersDiv = document.getElementById("characters");
   var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
 
+  var words = ["zombie", "walkers", "headshot", "pistol", "alexandria", "blood", "survival"]
+  var chosenWord;
+
+  var wordDiv = document.getElementById("word");
+
   // Functions
   function addImages() {
     for (var i = 0; i < characters.length; i++) {
@@ -25,7 +30,26 @@ window.onload = function () {
       characterCol.appendChild(character);
     }
   }
-  
+
+  function generateWord() {
+    // Choosing a random word from the words array
+    chosenWord = words[Math.floor(Math.random() * words.length)]
+    console.log('word:', chosenWord);
+
+    // For loop to display blank spaces
+    for (var i = 0; i < chosenWord.length; i++) {
+      // Create new span for each letter
+      var letterSpan = document.createElement("span");
+      // Giving text content to each letter
+      letterSpan.textContent = "_ ";
+      // Appending each letter to #word
+      wordDiv.appendChild(letterSpan);
+      // Adding ID to each span
+      letterSpan.setAttribute("id", i);
+    };
+  }
+
   // Function Calls
   addImages()
+  generateWord()
 }
