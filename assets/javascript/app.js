@@ -7,6 +7,7 @@ window.onload = function () {
 
   var charactersDiv = document.getElementById("characters");
   var wordDiv = document.getElementById("word");
+  var guessesDiv = document.getElementById("guessed-letters");
   var guessesLeftDiv = document.getElementById("guesses-left");
   guessesLeftDiv.textContent = guesses;
 
@@ -108,6 +109,15 @@ window.onload = function () {
         console.log("Wrong")
         wrongGuesses++
         guesses--
+
+        // Update Guesses
+        wrongLetters.push(guess);
+        // Create new span for each guess
+        var guessSpan = document.createElement("span");
+        // Giving text content to each guess
+        guessSpan.textContent = guess.toUpperCase() + " ";
+        // Appending each letter to #guessed-letters
+        guessesDiv.appendChild(guessSpan);
       }
     }
   }
