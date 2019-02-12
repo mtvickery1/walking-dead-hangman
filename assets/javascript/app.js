@@ -62,6 +62,56 @@ window.onload = function () {
     };
   }
 
+  // On user guess, run this code
+  document.onkeyup = function (e) {
+    // User Guess
+    guess = e.key
+    keyCode = e.keyCode
+
+    // If guess is a letter, do the following
+    if (keyCode >= 65 && keyCode <= 90) {
+      console.log("letter")
+
+      checkIfCorrect()
+      // Handles correct guess
+      function checkIfCorrect() {
+        for (var i = 0; i < chosenWord.length; i++) {
+          // Grabs correct letter and associated Id 
+          var correctGuessId = document.getElementById(i);
+          // If correct, call correct()
+          if (guess === chosenWord[i]) {
+            correct(correctGuessId)
+          }
+        }
+      }
+
+      checkIfIncorrect()
+      // Handles incorrect guess
+      function checkIfIncorrect() {
+        for (var i = 0; i < chosenWord.length; i++) {
+          // Making sure letter hasn't already been guessed. If not, call wrong()
+          if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
+            wrong()
+          }
+        }
+      }
+
+      // Correct
+      function correct(correctGuessId) {
+        rightLetters.push(guess);
+        console.log('pushed:', guess);
+        correctGuessId.textContent = guess.toUpperCase();
+      }
+
+      // Incorrect
+      function wrong() {
+        console.log("Wrong")
+        wrongGuesses++
+        guesses--
+      }
+    }
+  }
+
   // Function Calls
   addImages()
   generateWord()
