@@ -14,11 +14,54 @@
     integrity="sha384-VoPFvGr9GxhDT3n8vqqZ46twP5lgex+raTCfICQy73NLhN7ZqSfCtfSn4mLA2EFA"
     crossorigin="anonymous"></script>
 
+  <!-- Walking Dead Font -->
+  <link rel="stylesheet" href="./assets/fonts/dead-kansas-cufonfonts-webfont/style.css">
+
+  <!-- My CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
 </head>
 
 <body>
 
+  <!-- Main Container -->
+  <div class="container">
 
+    <!-- Title -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="title" class="text-center">
+          Walking Dead Hangman
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="row text-center">
+      <div class="col-sm-12" style="font-size: 20px;">
+        Press any key to start!
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-sm-12" style="font-size: 14px; padding: 10px;">
+        Guess the word before all your friends turn into zombies!
+      </div>
+    </div>
+
+    <!-- Gameplay -->
+    <div id="gameplay" class="row text-center">
+      <div id="game-left" class="col-sm-6">
+        <div id="characters" class="row">
+          <!-- Images appended here -->
+        </div>
+      </div>
+      <div id="game-right" class="col-sm-6"></div>
+    </div>
+
+  </div>
+
+  <!-- My JavaScript -->
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
 

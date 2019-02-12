@@ -1,0 +1,35 @@
+/* Global */
+body {
+  background: black;
+  color: white;
+}
+
+/* Change Image */
+.invert {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+#title {
+  font-family:'Dead Kansas';
+  font-size: 60px;
+  color: red;
+  padding: 40px;
+}
+
+#gameplay {
+  border: red 2px solid;
+  min-height: 500px;
+}
+
+#game-left {
+}
+
+#game-right {
+  border-left: red 2px solid;
+}
+
+img {
+  margin: 5px;
+  border: white 1px solid;
+}
