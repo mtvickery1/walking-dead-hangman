@@ -29,7 +29,7 @@
 
     <!-- Title -->
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-12">
         <div id="title" class="text-center">
           Walking Dead Hangman
         </div>
@@ -38,39 +38,65 @@
 
     <!-- Instructions -->
     <div class="row text-center">
-      <div class="col-sm-12">
+      <div class="col-12">
         Press any key to start!
       </div>
     </div>
     <div class="row text-center">
-      <div class="col-sm-12" style="font-size: 14px; padding: 10px;">
+      <div class="col-12" style="font-size: 14px; padding: 10px;">
         Guess the word before all your friends turn into zombies!
       </div>
     </div>
 
     <!-- Gameplay -->
-
     <div id="gameplay" class="row text-center rounded">
 
-      <!-- LEFT CONTAINER -->
-      <div id="game-left" class="col-sm-6">
+      <!-- Left Container -->
+      <div id="game-left" class="col-6">
         <div id="characters" class="row">
           <!-- Images appended here -->
         </div>
       </div>
 
-      <!-- RIGHT CONTAINER -->
-      <div id="game-right" class="col-sm-6">
+      <!-- Right Container -->
+      <div id="game-right" class="col-6">
 
         <div class="row">
-          <div class="col-sm-12" style="padding: 10px;">
+          <div class="col-12">
             CURRENT WORD
           </div>
         </div>
 
-        <div class="row text-center">
-          <div id="word" class="col-sm-12 rounded">
+        <!-- Word -->
+        <div class="row text-center rounded">
+          <div id="word" class="col-12">
             <!-- Words appended here -->
+          </div>
+        </div>
+
+        <!-- Wins/Losses -->
+        <div id="score" class="row rounded">
+          <!-- Wins -->
+          <div class="col-6">
+            Wins: 
+          </div>
+          <!-- Losses -->
+          <div class="col-6">
+            Losses: 
+          </div>
+        </div>
+
+        <!-- Guesses Remaining -->
+        <div id="guesses-remaining" class="row">
+          <div class="col-12">
+            Number of Guesses Remaining: <span id="guesses-left"></span>
+          </div>
+        </div>
+
+        <!-- Guessed Letters -->
+        <div id="guessed-letters-row" class="row">
+          <div class="col-12">
+            Letters Already Guessed: <span id="guessed-leters"></span>
           </div>
         </div>
 

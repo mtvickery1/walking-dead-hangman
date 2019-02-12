@@ -1,15 +1,28 @@
 window.onload = function () {
 
-  // Global Variables
-  var charactersDiv = document.getElementById("characters");
-  var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
+  // Global Variables //
+  /////////////////////////////////////////////////////////////////////////////
+  var guesses = 10;
+  var wrongGuesses = 0
 
+  var charactersDiv = document.getElementById("characters");
+  var wordDiv = document.getElementById("word");
+  var guessesLeftDiv = document.getElementById("guesses-left");
+  guessesLeftDiv.textContent = guesses;
+
+  var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
   var words = ["zombie", "walkers", "headshot", "pistol", "alexandria", "blood", "survival"]
+  var rightLetters = [];
+  var wrongLetters = [];
+
+  var guess;
   var chosenWord;
 
-  var wordDiv = document.getElementById("word");
+  /////////////////////////////////////////////////////////////////////////////
+
 
   // Functions
+  /////////////////////////////////////////////////////////////////////////////
   function addImages() {
     for (var i = 0; i < characters.length; i++) {
 

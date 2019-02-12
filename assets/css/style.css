@@ -23,6 +23,7 @@ body {
   min-height: 500px;
 }
 
+/* Left */
 #game-left {
 }
 
@@ -31,12 +32,31 @@ img {
   border: white 1px solid;
 }
 
+/* Right */
 #game-right {
-  border-left: #D39920 2px solid;
-  padding: 40px;
+  border-left: rgb(211, 153, 32) 2px solid;
+  padding: 20px 40px;
 }
 
 #word {
   background: rgb(255, 0, 0, .5);
   padding: 10px;
+  margin-top: 20px;
+}
+
+#score {
+  border: dotted 2px rgb(255, 0, 0, .5);
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#guesses-remaining {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#guessed-letters-row {
+  padding: 10px;
+  margin-top: 20px;
+  background: rgb(211, 153, 32);
 }
