@@ -25,6 +25,9 @@ window.onload = function () {
 
   var disableInput = false;
   var totalWords = words.length
+
+  var winAudio = "./assets/audio/win.mp3"
+  var lossAudio = "./assets/audio/loss.mp3"
   /////////////////////////////////////////////////////////////////////////////
 
 
@@ -108,6 +111,12 @@ window.onload = function () {
     }
   }
 
+  function playAudio(gameAudio) {
+    var audio = new Audio(gameAudio);
+    audio.play();
+    audio.volume = .5;
+  }
+
   function addImages() {
     for (var i = 0; i < characters.length; i++) {
 
@@ -139,7 +148,6 @@ window.onload = function () {
     chosenWord = words[randomNumber];
     console.log('chosenWord:', chosenWord);
 
-    console.log('words:', words)
     // Removing word from words array so it doesn't generate twice
     words.splice(randomNumber, 1);
 
@@ -173,6 +181,7 @@ window.onload = function () {
     disableInput = true;
     updatePage()
     displayWin()
+    playAudio(winAudio);
     setTimeout(reset, 3000)
   }
   function loss() {
@@ -181,6 +190,7 @@ window.onload = function () {
     updatePage()
     displayCorrectWord();
     displayLoss()
+    playAudio(lossAudio);
     setTimeout(reset, 3000)
   }
 
