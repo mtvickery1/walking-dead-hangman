@@ -36,11 +36,65 @@ window.onload = function () {
 
   function reset() {
     guesses = 8;
+    wrongGuesses = 0
     rightLetters = [];
     wrongLetters = [];
     wordDiv.innerHTML = "";
     guessesDiv.innerHTML = "";
+    resetImages();
     generateWord();
+  }
+
+  // Resets Zombified Images
+  function resetImages() {
+    var x = document.getElementById("characters").getElementsByTagName("img");
+    console.log(x);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("invert");
+    }
+  }
+
+  // Update Page
+  function updatePage() {
+    winsDiv.textContent = wins;
+    lossesDiv.textContent = losses;
+    guessesLeftDiv.textContent = guesses;
+  }
+
+  // Update Image
+  function updateImage() {
+    if (wrongGuesses === 1) {
+      var carl = document.getElementById("image-0");
+      carl.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 2) {
+      var maggie = document.getElementById("image-1");
+      maggie.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 3) {
+      var glenn = document.getElementById("image-2");
+      glenn.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 4) {
+      var morgan = document.getElementById("image-3");
+      morgan.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 5) {
+      var carol = document.getElementById("image-4");
+      carol.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 6) {
+      var daryl = document.getElementById("image-5");
+      daryl.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 7) {
+      var michonne = document.getElementById("image-6");
+      michonne.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 8) {
+      var rick = document.getElementById("image-7");
+      rick.setAttribute("class", "invert")
+    }
   }
 
   function addImages() {
@@ -87,49 +141,6 @@ window.onload = function () {
       // Adding ID to each span
       letterSpan.setAttribute("id", i);
     };
-  }
-
-  // Update Page
-  function updatePage() {
-    winsDiv.textContent = wins;
-    lossesDiv.textContent = losses;
-    guessesLeftDiv.textContent = guesses;
-  }
-
-  // Update Image
-  function updateImage() {
-    if (wrongGuesses === 1) {
-      var carl = document.getElementById("image-0");
-      carl.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 2) {
-      var maggie = document.getElementById("image-1");
-      maggie.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 3) {
-      var glenn = document.getElementById("image-2");
-      glenn.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 4) {
-      var morgan = document.getElementById("image-3");
-      morgan.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 5) {
-      var carol = document.getElementById("image-4");
-      carol.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 6) {
-      var daryl = document.getElementById("image-5");
-      daryl.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 7) {
-      var michonne = document.getElementById("image-6");
-      michonne.setAttribute("class", "invert")
-    }
-    if (wrongGuesses === 8) {
-      var rick = document.getElementById("image-7");
-      rick.setAttribute("class", "invert")
-    }
   }
 
   // Check if Game Over
