@@ -5,6 +5,6 @@ https://mtvickery1.github.io/walking-dead-hangman/
 ## Things to add
 
 - [x] if loss, display word on timeout
-- [ ] ability to use phrases with spaces
+- [x] ability to use phrases with spaces
 - [ ] sound effects
 - [ ] favicon

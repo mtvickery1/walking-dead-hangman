@@ -2,10 +2,11 @@ window.onload = function () {
 
   // Global Variables //
   /////////////////////////////////////////////////////////////////////////////
+  var wins = 0;
+  var losses = 0;
   var guesses = 8;
-  var wrongGuesses = 0
-  var wins = 0
-  var losses = 0
+  var wrongGuesses = 0;
+  var correctGuesses = 0;
 
   var charactersDiv = document.getElementById("characters");
   var wordDiv = document.getElementById("word");
@@ -15,7 +16,7 @@ window.onload = function () {
   var guessesDiv = document.getElementById("guessed-letters");
 
   var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
-  var words = ["zombie", "walkers", "hilltop", "pistol", "alexandria", "crossbow", "survival", "apocalypse"];
+  var words = ["zombie", "walkers", "the hilltop", "pistol", "alexandria", "crossbow", "survival", "apocalypse", "the walking dead"];
   var rightLetters = [];
   var wrongLetters = [];
 
@@ -49,6 +50,7 @@ window.onload = function () {
       generateWord();
       updatePage();
       disableInput = false;
+      correctGuesses = 0;
     } else {
       endOfGame();
     }
@@ -152,11 +154,13 @@ window.onload = function () {
       // Adding ID to each span
       letterSpan.setAttribute("id", i);
     };
+    // Displays spaces in phrase
+    displaySpaces()
   }
 
   // Check if Game Over
   function checkIfGameOver() {
-    if (rightLetters.length === chosenWord.length) {
+    if (correctGuesses === chosenWord.length) {
       win()
     } else if (guesses === 0) {
       loss()
@@ -184,9 +188,20 @@ window.onload = function () {
   function displayCorrectWord() {
     for (var i = 0; i < chosenWord.length; i++) {
       var correctLetters = chosenWord[i];
-      // Grabs correct letter and associated Id 
       var correctGuessId = document.getElementById(i);
       correctGuessId.textContent = correctLetters.toUpperCase();
+    }
+  }
+
+  function displaySpaces() {
+    for (var i = 0; i < chosenWord.length; i++) {
+      var space = " ";
+      var correctGuessId = document.getElementById(i);
+      // Making sure letter hasn't already been guessed. If not, call correct()
+      if (space === chosenWord[i]) {
+        correctGuesses++
+        correctGuessId.textContent = "\xa0\xa0";
+      }
     }
   }
 
@@ -296,6 +311,8 @@ window.onload = function () {
         rightLetters.push(guess);
         // Revealing correct letter(s)
         correctGuessId.textContent = guess.toUpperCase();
+        // Increase correctGuesses by 1
+        correctGuesses++
       }
 
       // Incorrect
