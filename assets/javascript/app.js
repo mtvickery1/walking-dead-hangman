@@ -23,6 +23,7 @@ window.onload = function () {
   var chosenWord;
 
   var disableInput = false;
+  var totalWords = words.length
   /////////////////////////////////////////////////////////////////////////////
 
 
@@ -37,16 +38,27 @@ window.onload = function () {
   }
 
   function reset() {
-    guesses = 8;
-    wrongGuesses = 0
-    rightLetters = [];
-    wrongLetters = [];
-    wordDiv.innerHTML = "";
-    guessesDiv.innerHTML = "";
-    resetImages();
-    generateWord();
-    updatePage();
-    disableInput = false;
+    if (wins + losses !== totalWords) {
+      guesses = 8;
+      wrongGuesses = 0
+      rightLetters = [];
+      wrongLetters = [];
+      wordDiv.innerHTML = "";
+      guessesDiv.innerHTML = "";
+      resetImages();
+      generateWord();
+      updatePage();
+      disableInput = false;
+    } else {
+      endOfGame();
+    }
+  }
+
+  // Update Page
+  function updatePage() {
+    winsDiv.textContent = wins;
+    lossesDiv.textContent = losses;
+    guessesLeftDiv.textContent = guesses;
   }
 
   // Resets Zombified Images
@@ -58,14 +70,7 @@ window.onload = function () {
     }
   }
 
-  // Update Page
-  function updatePage() {
-    winsDiv.textContent = wins;
-    lossesDiv.textContent = losses;
-    guessesLeftDiv.textContent = guesses;
-  }
-
-  // Update Image
+  // Update images on incorrect guess
   function updateImage() {
     if (wrongGuesses === 1) {
       var carl = document.getElementById("image-0");
@@ -131,7 +136,7 @@ window.onload = function () {
     var randomNumber = Math.floor(Math.random() * words.length);
     chosenWord = words[randomNumber];
     console.log('chosenWord:', chosenWord);
-    
+
     console.log('words:', words)
     // Removing word from words array so it doesn't generate twice
     words.splice(randomNumber, 1);
@@ -162,12 +167,14 @@ window.onload = function () {
   function win() {
     wins++
     disableInput = true;
+    updatePage()
     displayWin()
     setTimeout(reset, 3000)
   }
   function loss() {
     losses++
     disableInput = true;
+    updatePage()
     displayLoss()
     setTimeout(reset, 3000)
   }
@@ -194,6 +201,34 @@ window.onload = function () {
     loserDiv.style = "padding-top: 15%; color: red;";
     // Appending message to #guessed-letters
     guessesDiv.appendChild(loserDiv);
+  }
+  function endOfGame() {
+    // Clearing guessed letters
+    guessesDiv.innerHTML = "";
+    // Create new div to display WINNER
+    var endOfGame = document.createElement("div");
+    // Giving text content to div
+    endOfGame.textContent = "GAME OVER";
+    // Set img style
+    endOfGame.style = "padding-top: 10%; color: D39920;";
+    // Appending message to #guessed-letters
+    guessesDiv.appendChild(endOfGame);
+
+    // Create new div to display WINNER
+    var endOfGame2 = document.createElement("div");
+    // Giving text content to div
+    endOfGame2.textContent = "Reloading page...";
+    // Set img style
+    endOfGame2.style = "padding-top: 10px; color: D39920; font-size: 15px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;";
+    // Appending message to #guessed-letters
+    guessesDiv.appendChild(endOfGame2);
+
+    // Reload Page
+    setTimeout(reloadPage, 3000);
+  }
+
+  function reloadPage () {
+    location.reload();
   }
   /////////////////////////////////////////////////////////////////////////////
 
