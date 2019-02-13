@@ -2,7 +2,7 @@ window.onload = function () {
 
   // Global Variables //
   /////////////////////////////////////////////////////////////////////////////
-  var guesses = 10;
+  var guesses = 8;
   var wrongGuesses = 0
   var wins = 0
   var losses = 0
@@ -13,7 +13,6 @@ window.onload = function () {
   var lossesDiv = document.getElementById("losses");
   var guessesLeftDiv = document.getElementById("guesses-left");
   var guessesDiv = document.getElementById("guessed-letters");
-
 
   var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
   var words = ["zombie", "walkers", "headshot", "pistol", "alexandria", "blood", "survival"]
@@ -35,13 +34,22 @@ window.onload = function () {
     generateWord()
   }
 
+  function reset() {
+    guesses = 8;
+    rightLetters = [];
+    wrongLetters = [];
+    wordDiv.innerHTML = "";
+    guessesDiv.innerHTML = "";
+    generateWord();
+  }
+
   function addImages() {
     for (var i = 0; i < characters.length; i++) {
 
       // Create image column
       var characterCol = document.createElement("div");
       // Set column class
-      characterCol.setAttribute("class", "col-sm-6 ")
+      characterCol.setAttribute("class", "col-sm-6")
       // Append column to #characters
       charactersDiv.appendChild(characterCol);
 
@@ -51,8 +59,10 @@ window.onload = function () {
       character.src = "./assets/images/" + characters[i] + ".jpg";
       // Set img style
       character.style = "width: auto; height: 150px";
-      // Set column class
+      // Set image class
       character.setAttribute("class", "rounded")
+      // Set image Id
+      character.setAttribute("id", "image-" + i)
       // Append img to column
       characterCol.appendChild(character);
     }
@@ -62,8 +72,7 @@ window.onload = function () {
     // Choosing a random word from the words array
     var randomNumber = Math.floor(Math.random() * words.length);
     chosenWord = words[randomNumber];
-    console.log('word:', chosenWord);
-
+    console.log('chosenWord:', chosenWord)
     // Removing word from words array so it doesn't generate twice
     words.splice(randomNumber, 1);
 
@@ -87,6 +96,43 @@ window.onload = function () {
     guessesLeftDiv.textContent = guesses;
   }
 
+  // Update Image
+  function updateImage() {
+    if (wrongGuesses === 1) {
+      var carl = document.getElementById("image-0");
+      carl.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 2) {
+      var maggie = document.getElementById("image-1");
+      maggie.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 3) {
+      var glenn = document.getElementById("image-2");
+      glenn.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 4) {
+      var morgan = document.getElementById("image-3");
+      morgan.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 5) {
+      var carol = document.getElementById("image-4");
+      carol.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 6) {
+      var daryl = document.getElementById("image-5");
+      daryl.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 7) {
+      var michonne = document.getElementById("image-6");
+      michonne.setAttribute("class", "invert")
+    }
+    if (wrongGuesses === 8) {
+      var rick = document.getElementById("image-7");
+      rick.setAttribute("class", "invert")
+    }
+  }
+
+  // Check if Game Over
   function checkIfGameOver() {
     if (rightLetters.length === chosenWord.length) {
       win()
@@ -98,14 +144,13 @@ window.onload = function () {
   }
   function win() {
     wins++
+    reset()
     updatePage()
-    alert("YOU WON");
-
   }
   function loss() {
     losses++
+    reset()
     updatePage()
-    alert("loser")
   }
   /////////////////////////////////////////////////////////////////////////////
 
@@ -114,6 +159,7 @@ window.onload = function () {
   /////////////////////////////////////////////////////////////////////////////
   // On user guess, run this code
   document.onkeyup = function (e) {
+
     // User Guess
     guess = e.key
     keyCode = e.keyCode
@@ -136,12 +182,14 @@ window.onload = function () {
             correct(correctGuessId)
           }
         }
+        // Check if incorrect
         checkIfIncorrect()
       }
     }
 
     // Handles incorrect guess
     function checkIfIncorrect() {
+
       for (var i = 0; i < chosenWord.length; i++) {
         // Making sure letter hasn't already been guessed. If not, call wrong()
         if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
@@ -152,21 +200,18 @@ window.onload = function () {
 
     // Correct
     function correct(correctGuessId) {
+      // Pushing correct guess to rightLetters array
       rightLetters.push(guess);
-      console.log('pushed:', guess);
+      // Revealing correct letter(s)
       correctGuessId.textContent = guess.toUpperCase();
-
-      // Update Page
-      checkIfGameOver()
     }
 
     // Incorrect
     function wrong() {
-      console.log("Wrong")
       wrongGuesses++
       guesses--
 
-      // Update Guesses
+      // Pushing incorrect guess to wrongLetters array
       wrongLetters.push(guess);
       // Create new span for each guess
       var guessSpan = document.createElement("span");
@@ -174,10 +219,12 @@ window.onload = function () {
       guessSpan.textContent = guess.toUpperCase() + " ";
       // Appending each letter to #guessed-letters
       guessesDiv.appendChild(guessSpan);
-
-      // Update Page
-      checkIfGameOver()
+      // Update Image
+      updateImage()
     }
+
+    // Check if game over
+    checkIfGameOver()
 
   }
   /////////////////////////////////////////////////////////////////////////////

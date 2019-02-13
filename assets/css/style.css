@@ -40,23 +40,23 @@ img {
 #word {
   background: rgb(255, 0, 0, .5);
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #score {
   border: dotted 2px rgb(255, 0, 0, .5);
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #guesses-remaining {
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #guessed-letters-row {
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
   background: rgb(211, 153, 32);
 }
 
