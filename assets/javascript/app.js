@@ -15,7 +15,7 @@ window.onload = function () {
   var guessesDiv = document.getElementById("guessed-letters");
 
   var characters = ["carl", "maggie", "glenn", "morgan", "carol", "daryl", "michonne", "rick"];
-  var words = ["zombie", "walkers", "headshot", "pistol", "alexandria", "blood", "survival"]
+  var words = ["zombie", "walkers", "hilltop", "pistol", "alexandria", "crossbow", "survival", "apocalypse"];
   var rightLetters = [];
   var wrongLetters = [];
 
@@ -175,9 +175,21 @@ window.onload = function () {
     losses++
     disableInput = true;
     updatePage()
+    displayCorrectWord();
     displayLoss()
     setTimeout(reset, 3000)
   }
+
+  // Display the word if loss
+  function displayCorrectWord() {
+    for (var i = 0; i < chosenWord.length; i++) {
+      var correctLetters = chosenWord[i];
+      // Grabs correct letter and associated Id 
+      var correctGuessId = document.getElementById(i);
+      correctGuessId.textContent = correctLetters.toUpperCase();
+    }
+  }
+
   function displayWin() {
     // Clearing guessed letters
     guessesDiv.innerHTML = "";
@@ -227,7 +239,7 @@ window.onload = function () {
     setTimeout(reloadPage, 3000);
   }
 
-  function reloadPage () {
+  function reloadPage() {
     location.reload();
   }
   /////////////////////////////////////////////////////////////////////////////
