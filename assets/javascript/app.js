@@ -21,6 +21,8 @@ window.onload = function () {
 
   var guess;
   var chosenWord;
+
+  var disableInput = false;
   /////////////////////////////////////////////////////////////////////////////
 
 
@@ -43,6 +45,8 @@ window.onload = function () {
     guessesDiv.innerHTML = "";
     resetImages();
     generateWord();
+    updatePage();
+    disableInput = false;
   }
 
   // Resets Zombified Images
@@ -126,7 +130,9 @@ window.onload = function () {
     // Choosing a random word from the words array
     var randomNumber = Math.floor(Math.random() * words.length);
     chosenWord = words[randomNumber];
-    console.log('chosenWord:', chosenWord)
+    console.log('chosenWord:', chosenWord);
+    
+    console.log('words:', words)
     // Removing word from words array so it doesn't generate twice
     words.splice(randomNumber, 1);
 
@@ -155,13 +161,39 @@ window.onload = function () {
   }
   function win() {
     wins++
-    reset()
-    updatePage()
+    disableInput = true;
+    displayWin()
+    setTimeout(reset, 3000)
   }
   function loss() {
     losses++
-    reset()
-    updatePage()
+    disableInput = true;
+    displayLoss()
+    setTimeout(reset, 3000)
+  }
+  function displayWin() {
+    // Clearing guessed letters
+    guessesDiv.innerHTML = "";
+    // Create new div to display WINNER
+    var winnerDiv = document.createElement("div");
+    // Giving text content to div
+    winnerDiv.textContent = "YOU WON";
+    // Set img style
+    winnerDiv.style = "padding-top: 15%; color: green;";
+    // Appending message to #guessed-letters
+    guessesDiv.appendChild(winnerDiv);
+  }
+  function displayLoss() {
+    // Clearing guessed letters
+    guessesDiv.innerHTML = "";
+    // Create new div to display WINNER
+    var loserDiv = document.createElement("div");
+    // Giving text content to div
+    loserDiv.textContent = "YOU LOST";
+    // Set img style
+    loserDiv.style = "padding-top: 15%; color: red;";
+    // Appending message to #guessed-letters
+    guessesDiv.appendChild(loserDiv);
   }
   /////////////////////////////////////////////////////////////////////////////
 
@@ -171,71 +203,74 @@ window.onload = function () {
   // On user guess, run this code
   document.onkeyup = function (e) {
 
-    // User Guess
-    guess = e.key
-    keyCode = e.keyCode
+    if (disableInput === false) {
 
-    // If guess is a letter, do the following
-    if (keyCode >= 65 && keyCode <= 90) {
-      checkIfCorrect()
-    }
+      // User Guess
+      guess = e.key
+      keyCode = e.keyCode
 
-    // Handles correct guess
-    function checkIfCorrect() {
+      // If guess is a letter, do the following
+      if (keyCode >= 65 && keyCode <= 90) {
+        checkIfCorrect()
+      }
 
-      // Need this to ensure correct letters don't keep pushing to rightLetters array
-      if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
+      // Handles correct guess
+      function checkIfCorrect() {
+
+        // Need this to ensure correct letters don't keep pushing to rightLetters array
+        if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
+          for (var i = 0; i < chosenWord.length; i++) {
+            // Grabs correct letter and associated Id 
+            var correctGuessId = document.getElementById(i);
+            // Making sure letter hasn't already been guessed. If not, call correct()
+            if (guess === chosenWord[i]) {
+              correct(correctGuessId)
+            }
+          }
+          // Check if incorrect
+          checkIfIncorrect()
+        }
+      }
+
+      // Handles incorrect guess
+      function checkIfIncorrect() {
+
         for (var i = 0; i < chosenWord.length; i++) {
-          // Grabs correct letter and associated Id 
-          var correctGuessId = document.getElementById(i);
-          // Making sure letter hasn't already been guessed. If not, call correct()
-          if (guess === chosenWord[i]) {
-            correct(correctGuessId)
+          // Making sure letter hasn't already been guessed. If not, call wrong()
+          if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
+            wrong()
           }
         }
-        // Check if incorrect
-        checkIfIncorrect()
       }
-    }
 
-    // Handles incorrect guess
-    function checkIfIncorrect() {
-
-      for (var i = 0; i < chosenWord.length; i++) {
-        // Making sure letter hasn't already been guessed. If not, call wrong()
-        if (wrongLetters.includes(guess) === false && rightLetters.includes(guess) === false) {
-          wrong()
-        }
+      // Correct
+      function correct(correctGuessId) {
+        // Pushing correct guess to rightLetters array
+        rightLetters.push(guess);
+        // Revealing correct letter(s)
+        correctGuessId.textContent = guess.toUpperCase();
       }
+
+      // Incorrect
+      function wrong() {
+        wrongGuesses++
+        guesses--
+
+        // Pushing incorrect guess to wrongLetters array
+        wrongLetters.push(guess);
+        // Create new span for each guess
+        var guessSpan = document.createElement("span");
+        // Giving text content to each guess
+        guessSpan.textContent = guess.toUpperCase() + " ";
+        // Appending each letter to #guessed-letters
+        guessesDiv.appendChild(guessSpan);
+        // Update Image
+        updateImage()
+      }
+
+      // Check if game over
+      checkIfGameOver()
     }
-
-    // Correct
-    function correct(correctGuessId) {
-      // Pushing correct guess to rightLetters array
-      rightLetters.push(guess);
-      // Revealing correct letter(s)
-      correctGuessId.textContent = guess.toUpperCase();
-    }
-
-    // Incorrect
-    function wrong() {
-      wrongGuesses++
-      guesses--
-
-      // Pushing incorrect guess to wrongLetters array
-      wrongLetters.push(guess);
-      // Create new span for each guess
-      var guessSpan = document.createElement("span");
-      // Giving text content to each guess
-      guessSpan.textContent = guess.toUpperCase() + " ";
-      // Appending each letter to #guessed-letters
-      guessesDiv.appendChild(guessSpan);
-      // Update Image
-      updateImage()
-    }
-
-    // Check if game over
-    checkIfGameOver()
 
   }
   /////////////////////////////////////////////////////////////////////////////
