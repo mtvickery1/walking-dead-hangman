@@ -168,7 +168,6 @@ window.onload = function () {
   // Check if Game Over
   function checkIfGameOver() {
     
-    console.log('correctGuesses:', correctGuesses)
     if (correctGuesses === chosenWord.length) {
       win()
     } else if (guesses === 0) {
@@ -211,7 +210,6 @@ window.onload = function () {
       // Making sure letter hasn't already been guessed. If not, call correct()
       if (space === chosenWord[i]) {
         correctGuesses++
-        console.log("added to correctGuesses", correctGuesses)
         correctGuessId.textContent = "\xa0\xa0";
       }
     }
